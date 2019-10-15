@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>日历</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="./calendar.css">
+    <script type="text/javascript" src="./calendar.js" defer="true"></script>
+</head>
+<body>
+  <div class="calendar">
+    <div class="calendar__container-left greenbox">
+      <div class="calendar__left-weekday whitefont">First work</div>
+      <div class="calendar__left-date whitefont">calendar</div>
+    </div>
+    <div class="calendar__container-right">
+      <div class="calendar__right-title">
+        <a href="" class="prev" id="prev">Prev</a>
+        <div class="calendar__title-date">
+          <h1 class="greenfont" id="calendar-title">Month</h1>
+          <h2 class="greenfont small" id="calendar-year">Year</h2>
+        </div>
+        <a href="" class="next" id="next">Next</a>
+      </div>
+      <div class="calendar__right-body">
+        <div class="lightgreyfont calendar__body-list">
+          <ul>
+            <li>MON</li>
+            <li>TUE</li>
+            <li>WED</li>
+            <li>THU</li>
+            <li>FRI</li>
+            <li>SAT</li>
+            <li>SUN</li>
+          </ul>
+        </div>
+        <div class="darkgrey calendar__body-list">
+          <ul id="js_days"></ul>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+
+</body>
+</html>

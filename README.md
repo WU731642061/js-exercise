@@ -1,2 +1,3 @@
 # js-exercise
-record my js exercise
+
+工作一年，才明白自己的基础知识是多么的薄弱，借此项目，每日做一些js和html的学习。

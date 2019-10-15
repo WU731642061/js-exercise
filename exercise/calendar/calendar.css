@@ -1,0 +1,107 @@
+.calendar{
+  max-width: 80%;
+  min-width: 800px;
+  height: 600px;
+  margin: 20px auto 20px auto;
+  border: solid 1px green;
+  font-size: 0;
+}
+
+.greenbox{
+  background: #5cd65c; /*浅绿色背景*/
+}
+
+.calendar__container-left{
+  width: 50%;
+  height: 100%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.calendar__left-weekday{
+  margin: 30% auto auto 10%;
+  font-size: 60px;
+}
+
+.calendar__left-date{
+  margin: auto auto auto 10%;
+  font-size: 45px;
+}
+
+.calendar__container-right{
+  width: 50%;
+  height: 100%;
+  font-size: 0;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.whitefont{
+  color: #fff;
+  font-family: "Times New Roman";
+}
+
+.greenfont{
+  color: green;
+  font-family: "Times New Roman";
+  display: inline;
+}
+
+.lightgreyfont{
+  color:#a8a8a8;
+}
+
+.darkgreyfont{
+  color:#565656; /*深灰色*/
+}
+
+.prev, .next{
+  font-size: 12px;
+}
+
+.prev{
+  display: inline-block;
+  width: 10%;
+  line-height: 80px;
+  vertical-align: top;
+  padding-left: 10px;
+  box-sizing: border-box;
+}
+
+.next{
+  box-sizing: border-box;
+  display: inline-block;
+  width: 10%;
+  text-align: right;
+  line-height: 80px;
+  vertical-align: top;
+  padding-right: 10px;
+}
+
+.calendar__title-date{
+  display: inline-block;
+  width: 80%;
+  height: 80px;
+  line-height: 80px;
+  text-align: center;
+  font-size: 20px;
+}
+
+.calendar__body-list ul{
+  width:100%;
+  padding: 0;
+  font-family:arial;
+  font-weight:bold;
+}
+
+.calendar__body-list ul li{
+  width:14.2%;
+  font-size:14px;
+  height:36px;
+  line-height:36px;
+  list-style-type:none;
+  box-sizing:border-box;
+  display: inline-block;
+  text-align:center;
+}
+
