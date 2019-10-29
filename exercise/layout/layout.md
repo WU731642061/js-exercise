@@ -40,7 +40,7 @@ flex-basis: <length> | auto; // 分配剩余空间之前元素的默认大小，
 
 flex: none | auto | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ] // 相当于上述的组合
 
-align-self: auto | flex-start | flex-end | center | baseline | stretch; // 单独某一个flex子项的垂直对齐方式
+align-self: auto | flex-start | flex-end | center | baseline | stretch; // 单独某一个flex子项的交叉轴方向上的对齐方式
 ```
 
 : 关于每个属性的每个详细的解释，关于flex布局可以参考：https://zhuanlan.zhihu.com/p/46684565, 关于flex-item的解释可以参考：https://juejin.im/post/591d74ad128fe1005cfc21cd, 或者官方文档
