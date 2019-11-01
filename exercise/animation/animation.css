@@ -1,0 +1,113 @@
+h3 {
+    text-align: center;
+}
+
+.animation-exercise--box{
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    box-sizing: border-box;
+    border: solid 1px green;
+    margin-top: 20px; 
+    position: relative;
+}
+
+.introduce{
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: pink;
+    padding: 2px;
+}
+
+.ball{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-top: 100px;
+    border: solid 1px black;
+    margin-left: 50px;
+    overflow: hidden;
+    animation: move 3s linear infinite;
+}
+
+@keyframes move {
+    25%{
+        transform: translate(100px, 100px) scale(2);
+    }
+
+    50%{
+        transform: translate(200px, 0px) scale(1);
+    }
+
+    75%{
+        transform: translate(100px, 100px) scale(2);
+    }
+}
+
+.ball-inner{
+    position: relative;
+    opacity: 1;
+    animation: rotate 3s linear infinite;
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg) ;
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.ball-left{
+    float: left;
+    background-color: #0ff;
+    width: 50%;
+    height: 100%;
+}
+
+.ball-right{
+    float: left;
+    background-color: pink;
+    width: 50%;
+    height: 100%;
+}
+
+.loading{
+    margin-top: 40px; 
+    position: relative;
+}
+
+.steps{
+    animation: step 1s steps(8) infinite;
+}
+
+@keyframes step {
+    100%{
+        transform: rotate(360deg);
+    }
+}
+
+.rotate{
+    animation: rotate 1s infinite linear;
+}
+
+.process{
+    margin: 50px;
+    border: solid 1px black;
+    width: 80%;
+    height: 20px;
+    animation: process 10s linear forwards;
+    background: linear-gradient(#0ff,#0ff);
+    background-repeat: no-repeat;
+    background-size: 0;
+}
+
+@keyframes process {
+    100% {
+        background-size: 100%;
+    }
+}
