@@ -40,3 +40,4 @@ right.addEventListener('click', function(){
 
 // TODO
 // 加上动画效果和下标跟随移动
+// 加上懒加载效果
