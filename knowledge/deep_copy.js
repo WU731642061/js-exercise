@@ -20,6 +20,8 @@ console.log(obj2) // {name: "Tom", age: 25, hobby: Array(3), say: ƒ}
 console.log(obj1) // {name: "Tom", age: 25, hobby: Array(3), say: ƒ}
 
 // 浅拷贝
+// 数组快速版：如果拷贝的对象是数组，不需要去自己实现一个浅拷贝：
+let shallow_copy_array =  Array.prototype.concat.call(arr)  // 或者 shallow_copy_array = arr.contact()
 // 相较于引用，浅拷贝实现了基础类型的拷贝，但是对于引用数据类型，浅拷贝依旧是拷贝的原始数据的内存地址，而不是真的值
 function shallowCopy(obj){
     let new_obj = {}
