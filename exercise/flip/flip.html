@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>div翻转效果</title>
+    <link rel="stylesheet" type="text/css" href="./flip.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+</head>
+<body>
+  <div class="container">
+    <h3>div翻转效果</h3>
+
+    <div class="flip-item" ontouchstart="this.classList.toggle('hover');">
+      <!-- 
+        偷个懒，这里就不写在markdown上了，关于这个div的翻转效果，本来是想实现在credit card form的那个练习中的
+        为了能快点写完，在那个练习中，我就将翻转的效果移除了，但是为了巩固相关知识，在这个练习中去学习实现div翻转的效果
+        其实原理很简单，通过使用tranistion和transform两个效果的搭配，就能实现了
+        我会在相关的flip.css中对相应的属性进行说明。
+      -->
+      <div class="flip-item-front">
+        这是正面
+      </div>
+      <div class="flip-item-back">
+        这是反面
+      </div>
+    </div>
+  </div>
+    
+
+</body>
+</html>

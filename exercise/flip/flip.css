@@ -1,0 +1,64 @@
+.container{
+    box-sizing: border-box;
+    width: 80%;
+    height: 100vh;
+    margin: 0 auto;
+    background-color: pink;
+}
+
+.container > h3{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.flip-item{
+    position: relative;
+    margin: 0 auto;
+    max-width: 570px;
+    height: 400px;
+    transform-style: preserve-3d;
+    perspective: 1000;
+    transition: all 1s;
+    /*1. 首先，我们需要为3d变化搭建舞台和容器，即perspective（透视视角）属性和transform-style属性
+      关于3d可以参考这篇文章：https://www.zhangxinxu.com/wordpress/2012/09/css3-3d-transform-perspective-animate-transition/
+      2. 其次，我们要设置动画效果，让所有的变化在一个阶段时间内进行，即transition
+    */
+}
+
+.flip-item:hover{
+    transform: rotateY(180deg);
+    /*
+      3. 之后，当外层容器元素遇到hover事件时，内部div需要做出相应的翻转效果。
+    */
+}
+
+.flip-item-front, .flip-item-back{
+    width: 100%;
+    height: 480px;
+    backface-visibility: hidden;
+    /*
+      4. 因为我们设置了3d效果，这里需要做一个处理，即背面可视性(backface-visibility)属性设置为隐藏，这样div在翻转时，另一面是看不见的
+    */
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+}
+
+.flip-item-front{
+    background-color: #fff;
+    opacity: 1;
+    z-index: 2;
+    /*
+      5. 需要确保实图的层次感，front在上，back在下，同时，back必须现旋转180度，这样hover的时候，就出现back部分转正成0度，能正常显示。
+    */
+    color: #000; 
+}
+
+.flip-item-back{
+    position: absolute;
+    background-color: #000;
+    opacity: 1;
+    transform: rotateY(180deg);
+    color: #fff;
+}
