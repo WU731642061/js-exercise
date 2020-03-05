@@ -1,0 +1,15 @@
+{
+  "name": "webpack_exercise",
+  "version": "1.0.0",
+  "description": "webpack exercise",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --config webpack.config.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11"
+  }
+}

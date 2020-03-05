@@ -1,0 +1,237 @@
+/*原项目中使用了scss，这里就没有用，用原生的css*/
+
+body {
+  background-color: #d4ebfd;
+  font-size: 16px;
+  min-width: 320px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline: none;
+}
+
+.wrapper{
+  min-height: 100vh;
+  padding: 50px 15px;
+}
+
+.card-container{
+  /*这里用了max-width和widh限制了外部整个div的最大宽度*/
+  max-width: 570px;
+  width: 100%;
+  margin: auto;
+}
+
+@media screen and (max-width: 576px){
+  .card-container{
+    margin: 0 auto;
+  }
+}
+
+.card-list{
+  /*这边不要去设置他的高度，而是通过内部card的高度去撑起整个div的高度，
+  当整个div的高度被内部card撑起后，margin-bottom才能正确的引导div下移*/
+  margin-bottom: -130px;
+}
+
+.card-item{
+  max-width: 430px;
+  height: 270px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+.card-item-front{
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px 0 rgba(14, 42, 90, 0.55);
+  /*这边原项目中用了3d效果，我这边就直接复制了，关于transform3d效果，会在其他项目中做一些更加具现化的demo*/
+  transform: perspective(2000px) rotateY(0deg) rotateX(0deg) rotateZ(0deg);
+  transform-style: preserve-3d;
+  transition: all 0.8s cubic-bezier(0.71, 0.03, 0.56, 0.85);
+  backface-visibility: hidden;
+  height: 100%;
+}
+
+.card-item__focus{
+  position: absolute;
+  /*将z-index设置为3时因为这个边框必须浮与card-item上方*/
+  z-index: 3;
+  border-radius: 5px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  transition: all 0.35s cubic-bezier(0.71, 0.03, 0.56, 0.85);
+  opacity: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.65);
+}
+
+.card-item__focus::after{
+  /*这里的after的效果是设置card-item__focus的背景色，通过css滤镜filter添加了blur（虚化），
+  当card-item__focus的opacity为1的时候效果才能看得出来*/
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #000000;
+  height: 100%;
+  border-radius: 5px;
+  filter: blur(25px);
+  opacity: 0.5;
+}
+
+.card-item__wrapper{
+  padding: 25px 15px;
+  position: relative;
+  z-index: 4;
+  height: 100%;
+  text-shadow: 7px 6px 10px rgba(14, 42, 90, 0.8);
+  user-select: none;
+}
+
+/*.card-item__name{
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}*/
+
+.card-input{
+  background: #fff;
+  box-shadow: 0 30px 60px 0 rgba(90, 116, 148, 0.4);
+  border-radius: 10px;
+  /*这里用padding撑起了这个div的最小高度*/
+  padding: 180px 35px 35px 35px;
+}
+
+.card-input__block{
+  margin-bottom: 20px;
+}
+
+.card-form-row{
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.card-input__label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #1a3b5d;
+  width: 100%;
+  display: block;
+  /*user-select 控制着用户能否选中文本。除了在文本框里，它在chrome浏览器中对已加载的文本没有影响。*/
+  user-select: none;
+}
+
+.card-input__input{
+  width: 100%;
+  height: 50px;
+  border-radius: 5px;
+  border: 1px solid #ced6e0;
+  font-size: 18px;
+  padding: 5px 15px;
+  /* transition中的过渡渐变效果一共有：ease。linear。ease-in。ease-out，ease-in-out。step-start。step-end，step(start, end) */
+  transition: all 0.5s linear; 
+  color: #1a3b5d;
+}
+
+.card-input__input:hover{
+  border-color: #3d9cff;
+}
+
+
+/*这里我用了card-input__input-select-container覆盖内部select的样式*/
+.card-input__input-select-container{
+  box-sizing: border-box;
+  width: 150px;
+  height: 50px;
+  border-radius: 5px;
+  position: relative;
+  border: 1px solid #ced6e0;
+  background-color: #fff;
+  margin-right: 10px;
+  flex: 1;
+}
+
+.card-input__input-select{
+  /*清除select的边框样式*/
+  border: none;
+  /*清除select聚焦时候的边框颜色*/
+  outline: none;
+  /*将select的宽高等于div的宽高*/
+  width: 100%;
+  line-height: 45px;
+  /*隐藏select的下拉图标*/
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  font-size: 18px;
+  /*通过padding-left的值让文字居中*/
+  padding: 1px 15px;
+  background-color: #fff;
+}
+
+.card-input__input-select-container::after{
+  content: "";
+  background-size: 32px;
+  background-image: url(./images/xiala.png);
+  background-repeat: no-repeat;
+  display: block;
+  width: 32px;
+  height: 32px;
+  /*通过定位将图标放在合适的位置*/
+  position: absolute;
+  right: 5px;
+  top: 8px;
+  /*给自定义的图标实现点击下来功能*/
+  pointer-events: none;
+}
+
+.card-item__cover{
+  height: 100%;
+  background-color: #1c1d27;
+  position: absolute;
+  height: 100%;
+  background-color: #1c1d27;
+  left: 0;
+  top: 0;
+  width: 100%;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.card-item__cover > img{
+  max-width: 100%;
+  display: block;
+  max-height: 100%;
+  height: 100%;
+  width: 100%;
+  /*object-fit属性指定可替换元素的内容应该如何适应到其使用的高度和宽度确定的框，可选值：fill, contain, cover, none, scale-down*/
+  object-fit: cover;
+}
+
+
+.card-input__button{
+  background-color: #2364d2;
+  width: 100%;
+  height: 55px;
+  border-radius: 5px;
+  font-size: 22px;
+  font-weight: 500;
+  box-shadow: 3px 10px 20px 0px rgba(35, 100, 210, 0.3);
+  color: #fff;
+  line-height: 55px;
+  cursor: pointer;
+}

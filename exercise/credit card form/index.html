@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Credit card</title>
+    <link rel="stylesheet" type="text/css" href="./index.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script type="text/javascript" src="./index.js" defer="defer"></script>
+    <!-- 关于viewport的相关知识，忘了可以看这篇文章：https://www.cnblogs.com/2050/p/3877280.html -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+</head>
+<body>
+  <div id="app" class="wrapper">
+    <div class="card-container">
+      <div class="card-list">
+        <div class="card-item">
+          <div class="card-item-front">
+            <!-- item-front中主要有三个部分构成：
+                 1: focus框，当card-input__input或card-item__xxx被选中时，出现一个白色边框，逐渐缩小，直至大小等于选中div的大小
+                    关于这个框是怎么实现的，主要用到两个css属性，transition和transform，前者决定了变化的动画效果，后者决定了X轴和Y轴的位置
+                 2: cover，card-item的背景图片
+                 3: wrapper, 展示card内容，名字，日期等
+             -->
+            <div class="card-item__focus"></div>
+            <div class="card-item__cover">
+              <img src="./images/sky.jpg" alt="" />
+            </div>
+            <div class="card-item__wrapper"></div>
+          </div>
+        </div>
+        
+      </div>
+
+
+      <div class="card-input">
+        <div class="card-input__block">
+          <label for="cardNumber" class="card-input__label">卡号</label>
+          <input v-model="cardNumber" type="text" name="cardNumber" autocomplete="off" id="cardNumber" class="card-input__input">
+        </div>
+        <div class="card-input__block">
+          <label for="cardName" class="card-input__label">用户名</label>
+          <input v-model="cardName" type="text" name="cardName" autocomplete="off" id="cardName" class="card-input__input">
+        </div>
+        <div class="card-input__block card-form-row" style="overflow: hidden;">
+          <label for="cardMonth" class="card-input__label">过期时间</label>
+          <div class="card-input__input-select-container">
+            <select class="card-input__input-select" id="cardMonth" v-model="cardMonth">
+              <option value="" disabled selected>月份</option>
+              <option :value="n < 10 ? '0' + n : n" v-for="n in 12" :disabled="n < minCardMonth" :key="n">
+                  {{n < 10 ? '0' + n : n}}
+              </option>
+            </select>
+          </div>
+          <div class="card-input__input-select-container">
+            <select class="card-input__input-select" id="cardYear" v-model="cardYear">
+              <option value="" disabled selected>年份</option>
+              <option :value="$index + minCardYear" v-for="(n, $index) in 12" :key="n">
+                  {{$index + minCardYear}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="card-input__block">
+          
+        </div>
+        <button class="card-input__button">提交</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

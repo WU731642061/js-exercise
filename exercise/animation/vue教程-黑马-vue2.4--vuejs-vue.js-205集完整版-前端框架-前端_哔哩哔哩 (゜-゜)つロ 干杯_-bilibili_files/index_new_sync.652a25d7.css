@@ -1,0 +1,122 @@
+html {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, Helvetica, Arial, PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif;
+}
+html,
+body {
+  margin: 0;
+  border: 0;
+}
+@media screen and (-webkit-min-device-pixel-ratio: 2),
+  screen and (min-resolution: 2dppx) {
+  html {
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+  }
+}
+
+body * {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.im-root,
+.im-root * {
+  font-size: 12px;
+  line-height: 42px;
+}
+
+.im-root {
+  text-decoration: none;
+  color: #222;
+}
+
+.im-root a,
+.im-root a:hover,
+.im-root a:active,
+.im-root a:link,
+.im-root a:visited {
+  text-decoration: none;
+  color: inherit;
+}
+
+.im-root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.im-text {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  text-decoration: none;
+}
+
+.im-list-box {
+  width: 110px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #fff;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.16) 0px 2px 4px;
+          box-shadow: rgba(0, 0, 0, 0.16) 0px 2px 4px;
+  border-radius: 0 0 4px 4px;
+  overflow: hidden;
+  -webkit-transition: all 300ms;
+  transition: all 300ms;
+}
+
+.im-list {
+  display: block;
+  text-align: center;
+  position: relative;
+  line-height: 42px;
+  height: 42px;
+}
+
+.im-list:hover {
+  color: #00a1d6 !important;
+  background-color: #e5e9ef !important;
+}
+
+.im-notify {
+  position: absolute;
+  background-color: #fb7299;
+}
+
+.im-notify.im-number {
+  height: 14px;
+  line-height: 13px;
+  border-radius: 10px;
+  padding: 1px 3px;
+  font-size: 12px;
+  min-width: 20px;
+  text-align: center;
+  color: #fff;
+}
+
+.im-notify.im-number.im-center {
+  top: 14px;
+  left: 80px;
+}
+
+.im-notify.im-dot {
+  top: 11px;
+  right: -10px;
+  width: 8px;
+  height: 8px;
+  border-radius: 100%;
+}
+
+.im-notify.im-dot.im-center {
+  top: 16px;
+  right: 20px;
+}
+
+.im-show {
+  display: block !important;
+}
+
