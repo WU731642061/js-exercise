@@ -1,0 +1,34 @@
+.container{
+    width: 80%;
+    min-width: 700px;
+    border: solid 5px blue;
+    background-color: pink;
+    height: 100vh;
+    overflow: scroll;
+    position: relative;
+    display: block;
+    margin: 0 auto;
+}
+
+.inner{
+    position: relative;
+    width: 80%;
+    height: 2000px;
+    background-color: yellow;
+    margin: 0 auto;
+    /*box-sizing: border-box;*/
+}
+
+.bottom-image{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 200px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.bottom-image > img {
+    width: auto;
+    height: 100%;
+}
