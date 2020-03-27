@@ -22,8 +22,8 @@ exercise主要是记载一些js或者css的具体实现以及在html中的表现
     + [代码](https://github.com/WU731642061/js-exercise/tree/master/exercise/credit_card_form)
     + [预览](https://wu731642061.github.io/js-exercise/exercise/credit_card_form/index.html)
 6. js节流-防抖
-    + [代码](https://github.com/WU731642061/js-exercise/tree/master/exercise/credit_card_form)
-    + [预览](https://wu731642061.github.io/js-exercise/exercise/credit_card_form/index.html)
+    + [代码](https://github.com/WU731642061/js-exercise/tree/master/exercise/debouncing_throttling)
+    + [预览](https://wu731642061.github.io/js-exercise/exercise/debouncing_throttling/debouncing_throttling.html)
 7. 拖拽
 8. css翻转效果
     + [代码](https://github.com/WU731642061/js-exercise/tree/master/exercise/flip)
