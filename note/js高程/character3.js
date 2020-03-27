@@ -50,4 +50,7 @@ function arg_to_array() {
     console.log(arr1)
     var arr2 = new Array(...arguments)
     console.log(arr2)
+    // Array.from是es6的新语法，可以将类数组转换成数组
+    var arr3 = Array.from(arguments)
+    console.log(arr3)
 }    
