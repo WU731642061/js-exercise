@@ -2,14 +2,19 @@
   "name": "webpack_exercise",
   "version": "1.0.0",
   "description": "webpack exercise",
-  "main": "index.js",
+  "private": true,
   "scripts": {
     "build": "webpack --config webpack.config.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "css-loader": "^3.4.2",
+    "ts-loader": "^6.2.2",
     "webpack": "^4.41.6",
     "webpack-cli": "^3.3.11"
+  },
+  "dependencies": {
+    "lodash": "^4.17.15"
   }
 }
