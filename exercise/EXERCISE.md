@@ -6,3 +6,6 @@ exercise主要是记载一些js或者css的具体实现以及在html中的表现
 
 ##exercise内容
 
+1. 动画
+    + [代码](https://github.com/WU731642061/js-exercise/tree/master/exercise/animation)
+    + [预览](https://wu731642061.github.io/js-exercise/exercise/animation/animation.html)
