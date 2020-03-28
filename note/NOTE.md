@@ -10,7 +10,7 @@
 
 [git笔记](./git命令/record.md)
 
-js高程笔记 <br>
+[js高程笔记](https://github.com/WU731642061/js-exercise/tree/master/note/js%E9%AB%98%E7%A8%8B) <br>
 > 由于我用的是js文件记录的，请自行点击文件夹进行阅读，可能阅读的体验并不是很好，因为基本是写给自己看的。欢迎阅读js高程原版书籍
 
 [SPA笔记](./spa/record.md)
