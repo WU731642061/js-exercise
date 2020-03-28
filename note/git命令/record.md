@@ -28,6 +28,12 @@ git <git命令名> -h  // 关于git命令名，指的是config, add, push, commi
 ### git基础类命令
 
 ```
+git clone <仓库地址> <自定义本地仓库名(可选)>
+```
+
+**注意：关于git clone主要有ssh和https两种方式，详见这篇[文档](./ssh_https.md)**
+
+```
 git init  // 初始化仓库，在项目文件下创建.git文件夹
 
 ```
