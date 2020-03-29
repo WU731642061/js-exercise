@@ -36,6 +36,33 @@ git clone <仓库地址> <自定义本地仓库名(可选)>
 ```
 git init  // 初始化仓库，在项目文件下创建.git文件夹
 
+git status  // 查看仓库文件状态
+git status -s  // 状态简览
+
+git diff  // 查看已暂存和未暂存的修改
+
+git add <文件名 | 目录>  // 添加(追踪)文件
+
 ```
+
+关于git add拓展，详见[文档](./git_add.md)
+
+```
+git commit -m "提交说明"  // 提交文件
+```
+
+关于git commit拓展，详见[文档](./git_commit.md)
+
+```
+git rm <文件名>  // 移除文件
+// 与命令行rm操作的区别，git rm 会记录此次移除文件的操作，而普通的rm则不会
+
+git rm -f <文件名> // 强制移除，删除之前修改过或已经放到暂存区的文件
+
+git rm --cached <文件名> // 仅从git仓库中移除，但是保留在本地，当你忘记配置.gitigonre文件时，可以这么做
+
+git mv <file_from> <file_to> // 移动文件,可以将文件移到别的文件夹下，也可以重命名
+```
+
 
 
