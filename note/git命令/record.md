@@ -40,18 +40,19 @@ git status  // 查看仓库文件状态
 git status -s  // 状态简览
 
 git diff  // 查看已暂存和未暂存的修改
+```
 
+```
 git add <文件名 | 目录>  // 添加(追踪)文件
 
-```
-
-关于git add拓展，详见[文档](./git_add.md)
-
-```
 git commit -m "提交说明"  // 提交文件
+
+git push  // 将本地分支的更新，推送到远程主机
 ```
 
-关于git commit拓展，详见[文档](./git_commit.md)
+关于git add拓展，详见[文档](./git_add.md)<br>
+关于git commit拓展，详见[文档](./git_commit.md)<br>
+关于git push拓展，详见[文档](./git_push.md)
 
 ```
 git rm <文件名>  // 移除文件
