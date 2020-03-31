@@ -33,3 +33,5 @@ exercise主要是记载一些js或者css的具体实现以及在html中的表现
     + [代码](https://github.com/WU731642061/js-exercise/tree/master/exercise/screen)
     + [预览](https://wu731642061.github.io/js-exercise/exercise/screen/screen.html)
 11. js海量数据插入
+    + [代码](https://github.com/WU731642061/js-exercise/tree/master/exercise/multiple_data_insert)
+    + [预览](https://wu731642061.github.io/js-exercise/exercise/multiple_data_insert/multiple_data_insert.html)

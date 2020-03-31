@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>海量数据插入</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="./multiple_data_insert.css">
+</head>
+<body>
+    <div class="header">
+        <div class="header-left">
+            <div class="left-inner">
+                耗时：0小时0分0秒0毫秒
+            </div>
+        </div>
+        <div class="header-middle">
+            <button class="insert-button-common" id="insert1" onclick="mutiInsert('syncInsert')">for循环插入</button>
+            <button class="insert-button-common" id="insert2" onclick="mutiInsert('preInsert')">一次性渲染插入</button>
+            <button class="insert-button-common" id="insert3" onclick="mutiInsert('virtualDOM')">虚拟DOM</button>
+            <button class="insert-button-common" id="insert4" onclick="mutiInsert('loopVirtualDOM')">虚拟DOM循环载入</button>
+            <button class="insert-button-common" id="insert5" onclick="mutiInsert()">无限滚动</button>
+        </div>
+        <div class="header-right">
+            
+        </div>
+    </div>
+    <div class="container">
+       <table class="data-table">
+           <tr>
+               <th>ID</th>
+               <th>内容</th>
+           </tr>
+       </table>
+    </div>
+    <script type="text/javascript">
+        const $ = (selector) => document.querySelector(selector)
+        const $all = (selector) => document.querySelectorAll(selector)
+    </script>
+    <script type="text/javascript" src="./insert.js"></script>
+    <script type="text/javascript" src="./time.js"></script>
+    <script type="text/javascript" src="./multiple_data_insert.js" defer></script>
+</body>
+</html>
