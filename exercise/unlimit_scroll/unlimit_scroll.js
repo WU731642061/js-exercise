@@ -10,4 +10,4 @@
 // }
 
 // h5检查是否进入页面api：https://developer.mozilla.org/zh-CN/docs/Web/API/IntersectionObserver
-
+// 阮一峰老师的文章：http://www.ruanyifeng.com/blog/2016/11/intersectionobserver_api.html
