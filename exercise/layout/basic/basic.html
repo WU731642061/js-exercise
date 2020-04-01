@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>布局练习</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href='./basic.css'>
+</head>
+<body>
+    <div class="box-container">
+        <div class="box-description">这是一个普通的div</div>
+        <div>宽度占满一整行，高度自适应</div>
+    </div>
+    <div class="box-container">
+        <div class="box-description">这是一个普通的inline</div>
+        <div>宽度自适应，高度自适应</div>
+    </div>
+    <div class="box-container block-box">
+        <div class="box-description">这是inline-block布局</div>
+        <div class="inner-box">1</div>
+        <div class="inner-box">2</div>
+        <div class="inner-box">3</div>
+        <div class="inner-box">4</div>
+    </div>
+    <div class="box-container flex-box">
+        <div class="box-description">这是flex布局</div>
+        <div class="sz-box value-1">
+            <div class="bot"></div>
+        </div>
+        <div class="sz-box value-2">
+            <div class="bot"></div>
+            <div class="bot"></div>
+        </div>
+        <div class="sz-box value-3">
+            <div class="bot"></div>
+            <div class="bot"></div>
+            <div class="bot"></div>
+
+        </div>
+        <div class="sz-box value-4">
+            <div>
+                <div class="bot"></div>
+                <div class="bot"></div>
+            </div>
+            <div>
+                <div class="bot"></div>
+                <div class="bot"></div>
+            </div>
+        </div>
+        <div class="sz-box value-5">
+            <div>
+                <div class="bot"></div>
+                <div class="bot"></div>
+            </div>
+            <div class="middle-bot">
+                <div class="bot"></div>
+            </div>
+            <div>
+                <div class="bot"></div>
+                <div class="bot"></div>
+            </div>
+        </div>
+        <div class="sz-box value-6">
+            <div>
+                <div class="bot"></div>
+                <div class="bot"></div>
+                <div class="bot"></div>
+            </div>
+            <div>
+                <div class="bot"></div>
+                <div class="bot"></div>
+                <div class="bot"></div>
+            </div>
+        </div>
+    </div>
+     <div class="box-container block-box">
+        <div class="box-description">这是inline-flex布局</div>
+        <div class="inner-box inline-flex-box">
+            <div>5</div>
+            <div>5</div>
+            <div>5</div>
+            <div>5</div>
+        </div>
+        <div class="inner-box inline-flex-box">2</div>
+        <div class="inner-box inline-flex-box">3</div>
+        <div class="inner-box inline-flex-box">4</div>
+    </div>
+</body>
+</html>

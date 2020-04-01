@@ -1,0 +1,35 @@
+.container{
+    display: grid;
+    padding: 10px;
+    box-sizing: border-box;
+    border: solid 1px blue;
+}
+
+.outer-box{
+    grid-template-rows: repeat(3, 100px);
+    grid-template-columns: 200px 200px 200px;
+    grid-template-areas: "a a a"
+                         "b . ."
+                         "b c c";
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    /*justify-items: start ;*/
+    justify-content: start;
+}
+
+.inner-box {
+    box-sizing: border-box;
+    border: solid 1px pink;
+}
+
+.box-a{
+    grid-area: a;
+}
+
+.box-b{
+    grid-area: b;
+}
+
+.box-c{
+    grid-area: c;
+}
