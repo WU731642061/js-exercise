@@ -1,4 +1,5 @@
 const content = $('.header-right')
+const timeout = null
 
 $("#insert1").addEventListener("mouseover", function() {
   content.innerHTML = "暴力插入法<br>使用for循环和appendChild方法依次插入到html中<br>由于渲染阻塞的原因，并不会一条条渲染，会等到脚本运行完毕后，一次性绘制"
@@ -44,6 +45,7 @@ function switchButton (state) {
 
 // 初始化 table
 function initTable() {
+  clearTimeout(timeout)
   table.innerHTML = `<tr><th>ID</th><th>内容</th></tr>`
 }
 
@@ -54,7 +56,7 @@ function mutiInsert(event) {
   switchButton("disabled")
   
   time.startCal()
-  setTimeout(()=>{
+  timeout = setTimeout(()=>{
     switch(event){
       case "syncInsert":
         syncInsert()
