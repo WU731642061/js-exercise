@@ -41,6 +41,7 @@ function preInsert () {
 // 浏览器将多次回流/重绘收集起来组成队列，在一定时间后flush队列，将多个reflow的变为一次reflow。
 // 但是你会发想，上面syncInsert和virtualDOM两个方法跑的时间差不多，是因为现在的浏览器做了更加智能的优化，甚至连css都不计算了，直接统一计算完后添加
 // 但是，如果你添加了console.log(table.offsetHeight)，或者任何计算高度的js语句，就会强制引发计算css，那时候你就能体会到直接for循环又多慢了
+// 如果还是体会不到，参考这篇文章：https://www.jianshu.com/p/0a2f56a43b0c
 
 // 我们现在可能感受不到两者的区别，是因为有些浏览器做了更好的优化，导致两者之间重绘时间感觉相差无几
 function virtualDOM () {
