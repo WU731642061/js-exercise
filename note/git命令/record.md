@@ -45,14 +45,13 @@ git diff  // 查看已暂存和未暂存的修改
 ```
 git add <文件路径>  // 添加(追踪)文件
 
-git commit -m "提交说明"  // 提交文件
+git commit -m "提交说明"  // 提交文件，并添加提交信息说明
+git commit -a  // 将所有修改的和删除的文件提交到版本库，但是不会影响未被追踪的文件(即新建的未存在于git上的文件)
 
 git push  // 将本地分支的更新，推送到远程主机
 ```
 
 关于git add拓展，详见[文档](./git_add.md)<br>
-关于git commit拓展，详见[文档](./git_commit.md)<br>
-关于git push拓展，详见[文档](./git_push.md)
 
 ```
 git rm <文件名>  // 移除文件

@@ -1,6 +1,6 @@
 ## 关于git add命令
 
-将文件内容添加到索引(index)
+将文件内容添加到索引(index)(暂存区)
 
 index，原文是这么说明的：<br>
 >The "index" holds a snapshot of the content of the working tree, and it is this snapshot that is taken as the contents of the next commit.<br>
