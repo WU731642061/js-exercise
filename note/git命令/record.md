@@ -40,18 +40,32 @@ git status  // 查看仓库文件状态
 git status -s  // 状态简览
 
 git diff  // 查看已暂存和未暂存的修改
+
+git log // 查看提交历史，基于提交时间的先后顺序
+git log -p -<数字> // 以交互模式展示，最近n次的提交历史
+git log --stat // 查看提交历史，以简约的方式展示每次提交的信息
+
 ```
+
+关于git log常用参数，详见[文档](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2#pretty_format)
 
 ```
 git add <文件路径>  // 添加(追踪)文件
 
 git commit -m "提交说明"  // 提交文件，并添加提交信息说明
 git commit -a  // 将所有修改的和删除的文件提交到版本库，但是不会影响未被追踪的文件(即新建的未存在于git上的文件)
+git commit --amend  // 覆盖掉你的上一次提交，可以借这个命令实现一些撤销的行为
 
 git push  // 将本地分支的更新，推送到远程主机
+
+git reset HEAD <文件名> // 撤销git add添加的指定文件
+git checkout -- <文件名> // 放弃工作目录中的更改，彻底撤销(消除撤销的记录)，这两条命令在文档中，被称之为“危险的”，请小心使用
+
 ```
 
 关于git add拓展，详见[文档](./git_add.md)<br>
+关于git reset原理，详见[文档](https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E9%87%8D%E7%BD%AE%E6%8F%AD%E5%AF%86#_git_reset)<br>
+关于数据恢复，详见[文档](https://git-scm.com/book/zh/v2/Git-%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86-%E7%BB%B4%E6%8A%A4%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%81%A2%E5%A4%8D#_data_recovery)
 
 ```
 git rm <文件名>  // 移除文件
