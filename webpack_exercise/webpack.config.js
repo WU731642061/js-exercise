@@ -1,23 +1,38 @@
 // webpack.config.js
 
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
 module.exports = {
   mode:'development', // 开发模式
-  entry: path.resolve(__dirname,'src/main.js'), // 入口文件，单入口文件时的写法
-  
+  // mode: 'production',  // 
+  devtool: 'inline-source-map', // 当多个源打包成一个文件时，可以帮助追溯错误的源文件位置
+   devServer: {
+    contentBase: './dist'
+  }, // 提供一个简单的服务器，可以实现实时刷新页面
+  // entry: path.resolve(__dirname,'src/main.js'), // 入口文件，单入口文件时的写法
+  entry: {
+    main: './src/main.js',
+    print: './src/print.js'
+  },
+
   output: {
-    filename: 'output.js',  // 打包后的文件名称
+    filename: '[name].bundle.js',  // 打包后的文件名称
     path: path.resolve(__dirname,'dist')  // 打包后的目录
   },
   // 配置loader
   module: {
     rules: [
-      { test: /\.txt$/, use: 'raw-loader' },
-      { test: /\.css$/, use: 'css-loader' }, // 预处理css文件
-      { test: /\.ts$/, use: 'ts-loader' } // 预处理ts文件
+      { test: /\.css$/, use: ['style-loader', 'css-loader'] }, // 预处理css文件，我发现这边css预处理是有先后顺序的，必须先进行style-loader处理，才能编译成功，否则报错
+      { test: /\.ts$/, use: 'ts-loader' }, // 预处理ts文件
+      { test:/\.(png|svg|jpg|gif)$/, use: 'file-loader'}
     ]
   },
-  plugins: []
+  plugins: [
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({ title: 'Output Management' }),  // 一个插件，作用是生成新的index.html，这样你在动态的修改入口文件和出口文件时，会替换你的index.html，但是问题是，如果你在index.html上添加任何代码，重新构建时会消失
+  ]
 }
 
 

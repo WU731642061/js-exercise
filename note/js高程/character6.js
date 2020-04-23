@@ -76,7 +76,7 @@ Object.defineProperties(book, {_year:{value:2020, writable: true},
 var book = Object.defineProperties({}, {...})
 
 // 关于创建对象
-// 工厂模式（其实在es6中实现了通过class对象的方法，这里不作讨论，我会在关于es6的笔记中记录如何通过class更加优美的大量创建对象）
+// 工厂模式（其实在es6中实现了通过class对象的方法，这里不作讨论）
 function createPerson(name, age, job){
     var obj = {}
     obj.name = name
@@ -126,6 +126,26 @@ var demo2_1 = new Demo2(); var demo2_2 = new Demo2()
 demo2_1.say == demo2_2.say // true，很显然，由于是共享同一个原型方法，因此返回值是true
 
 // 每个构造函数被创建后，都会自动创建一个prototype属性，且这个原型对象都会获得一个constructor属性，是一个指针，指向构造函数本身
+
+// 关于__proto__
+// js高程给了一个更加清晰的解答，相较于我看其他文章的时候，原文是这么解释道的：
+// 构造函数的实例内部将包含一个指针(即一个内部属性)，指向构造函数的原型对象。ECMA-262第5版管这个指针叫[[prototype]]
+// 而在部分浏览器中，__proto__正是这个指针的具体体现，如果某个浏览器没有实现这块，那么这个所谓的指针，即无法被显示的访问到
+// 所以很多文章上来就说实例的__proto__属性，我觉得是不够严谨的，因为根据js高程的说法，这个是因为各个浏览器厂商实现了这个[[prototype]]指针
+
+// 关于查询是否是构造函数的实例
+Demo2.prototype.isPrototypeOf(demo2_1)  // true，isPrototypeOf可以确定实例和构造函数之间的关系
+Object.getPrototypeOf(demo2_1) == Demo2 // true Object.getPrototypeOf返回参数的[[prototype]]值，也就是常说的__proto__指向的对象
+
+// 原型与in操作符
+// 在js中，一共有两种情况下使用in操作符：单独使用和for-in使用
+"say" in demo2_1 // true 可以判断某个属性是否存在于对象的属性或者原型中
+// for-in 将会遍历所有能够通过对象访问的，且可枚举的属性，同时包括实例和原型。这里更多的建议直接看原文，或者参考这篇文章：https://www.cnblogs.com/wujie520303/p/4931384.html
+
+// 寄生模式构造函数
+
+
+
 
 
 

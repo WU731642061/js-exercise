@@ -56,8 +56,6 @@ git commit -m "提交说明"  // 提交文件，并添加提交信息说明
 git commit -a  // 将所有修改的和删除的文件提交到版本库，但是不会影响未被追踪的文件(即新建的未存在于git上的文件)
 git commit --amend  // 覆盖掉你的上一次提交，可以借这个命令实现一些撤销的行为
 
-git push  // 将本地分支的更新，推送到远程主机
-
 git reset HEAD <文件名> // 撤销git add添加的指定文件
 git checkout -- <文件名> // 放弃工作目录中的更改，彻底撤销(消除撤销的记录)，这两条命令在文档中，被称之为“危险的”，请小心使用
 
@@ -77,6 +75,33 @@ git rm --cached <文件名> // 仅从git仓库中移除，但是保留在本地�
 
 git mv <file_from> <file_to> // 移动文件,可以将文件移到别的文件夹下，也可以重命名
 ```
+
+```
+git remote  // 列出你指定的每一个远程服务器的简写
+git remote -v  // 显示需要读写远程仓库使用的 Git 保存的简写与其对应的 URL
+
+git remote show <remote>  // 列出远程仓库的 URL 与跟踪分支的信息
+
+git remote add <shortname> <url>  // 添加一个远程Git仓库
+
+git remote rename <original_name> <new_name>  // 将远程仓库重命名
+
+git remote remove <remote> // 移除指定远程仓库
+
+git fetch <远程仓库>  // 拉取远程仓库的代码
+// 注意：git fetch和git pull是有区别的
+// git fetch 仅仅是拉去远程仓库的代码，对于如何与你目前仓库代码进行交互(merge|rebase)，需要你进一步操作
+// git pull 可等于 fetch + merge 或 fetch + rebase
+// 更多的会在下面的git pull的片段解释(因为要结合merge和rebase一起解读)
+
+
+git push  // 将本地分支的更新，推送到远程主机，这个是简写方法
+git push <remote> <branck>  // 推送到指定远程仓库和指定分支
+``` 
+
+关于在服务器上搭建git，详见[文档](https://git-scm.com/book/zh/v2/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E6%90%AD%E5%BB%BA-Git#_getting_git_on_a_server)<br>
+
+
 
 
 
