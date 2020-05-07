@@ -101,6 +101,15 @@ git push <remote> <branck>  // 推送到指定远程仓库和指定分支
 
 关于在服务器上搭建git，详见[文档](https://git-scm.com/book/zh/v2/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E6%90%AD%E5%BB%BA-Git#_getting_git_on_a_server)<br>
 
+```
+git tag -l <通配模式>  // 列出标签,如果需要使用通配模式，-l/--list是必须的
+git tag <标签>  // 创建轻量标签
+git tag -a <标签> -m <存储在标签中的信息>  // 创建附注标签
+git show <标签>  // 查看标签信息和与之对应的提交信息
+git tag -d <标签>  // 删除标签
+
+```
+
 
 
 

@@ -44,3 +44,13 @@ git config --list
 以上是一些常用的配置命令，基本一台电脑也就最多配置个1-2次，更多细节性的配置，用`git help config`命令它不香吗？
 
 
+### git别名
+
+```
+git config --global alias.co checkout
+git config --global alias.br branch
+git config --global alias.ci commit
+git config --global alias.st status
+```
+
+以上是官方文档中，创建git别名的方法，在之后的开发中，就可以用co代替checkout，ci代替commit

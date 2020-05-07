@@ -143,6 +143,111 @@ Object.getPrototypeOf(demo2_1) == Demo2 // true Object.getPrototypeOf返回参�
 // for-in 将会遍历所有能够通过对象访问的，且可枚举的属性，同时包括实例和原型。这里更多的建议直接看原文，或者参考这篇文章：https://www.cnblogs.com/wujie520303/p/4931384.html
 
 // 寄生模式构造函数
+// 基本思想：创建一个函数，该函数的作用是封装创建对象代码，然后再返回新创建的对象。从表面上来看，很像工厂模式，但是其中的不同，下面慢慢品味
+
+function Person(name, age, job) {
+    var o = new Object()
+    o.name = name
+    o.age = age
+    o.job = job
+    o.sayName = function () {
+        console.log('my name is ' + this.name)  // 注意一下这里，这是和工厂模式的不同之处之一
+        // 如果不加this，那么我们不管怎么修改实例中的name，这里永远会调用上面对象中的name
+    }
+    return o
+}
+
+var myFriend = new Person('Tom', 15, 'no job')
+myFriend.sayName()
+
+// 这里要注意一点，也是上面构造模式中没有提到的，当我们通过new实例化一个对象时，如上面的Person，它是有返回值的，如果返回值是一个object对象，那么得到的值将会是return值
+// 以下为示例
+
+function Test () {
+    this.name = 'test'
+    // 情况一
+    return {}
+    // 情况二
+    // return function () {return 1}
+    // 情况三
+    // return null
+    // 情况四
+    // return []
+}
+// 在情况一下实例化
+var test1 = new Test()  // {}  返回值是空对象
+// 在情况二下实例化
+var test2 = new Test()  // ƒ () {return 1}  返回值是一个方法
+// 在情况三下实例化
+var test3 = new Test()  // {name: "test"}  虽然typeOf null 的返回值是object，但是这里却没有将null返回给变量
+// 在情况四下实例化
+var test4 = new Test()  // [] 返回值是空数组
+
+// 回到寄生模式，它可以做什么呢，在某些特殊情况下，创建一个构造函数，然后提供一些额外的方法。
+// 什么算是特殊情况，比如我们希望扩展一个Array或者String，但是我们不希望在原生数组的prototype上修改，这样会造成混乱，那么，我们就可以通过这种方式去实现
+
+function SpecialArray () {
+    var arr = new Array()
+    arr.push.apply(arr, arguments)  // 将所有参数添加到数组中去 
+    // 假设我们这个数组只用来传输数字，那么我希望实现一个自定义的快速排序
+    arr.quickSort = function (l = this) {
+        // 当长度小于等于1时，直接返回
+        if (l.length <= 1) {
+            return l
+        }
+        // 这个基准可以时任意值，考虑到整个数组是无序的，所以我们没有必要去取中间值
+        // 为啥这么写，因为js不支持像pyhthon那样的l[1:]数组切割，我们用这种方法去删除基准，得到出了基准以外的值组成的数组
+        var pivot = l.splice(0, 1)[0]
+        var smaller = []
+        var bigger = []
+        for (var i = 0; i < l.length; i++) {
+            if (l[i] < pivot) {
+                smaller.push(l[i])
+            } else {
+                bigger.push(l[i])
+            }
+        }
+        return this.quickSort(smaller).concat([pivot], this.quickSort(bigger))
+    }
+    return arr
+} 
+
+var newArr = SpecialArray(5,3,1,4,6)
+newArr.quickSort() // [1,3,4,5,6]
+// 这样，不管我们后续如何push新的数据，总能通过调用quickSort方法，获取到排序后的数组
+newArr.push(0)
+newArr.push(-100)
+newArr.quickSort() // [-100, 0, 1, 3, 4, 6]
+
+// 书中如此说明：返回的对象与构造函数或者构造函数的原型属性之间没有关系，这种写法和我们直接在函数外创建一个obj没有本质上的区别，如果能使用其他模式的情况下，不要使用这种模式
+// 这段其实我还不能很深刻的体会到，以后如果有体会的话，我会在此补充
+
+// 稳妥构造函数模式
+// 稳妥对象：指的是没有公共属性，而且其方法也不引用this对象
+// 示例如下：
+
+function Person(name, age, job) {
+    var obj = new Object
+    // 此处可以定义一些私有变量和方法
+    obj.sayName = function () {
+        console.log(name)
+    }
+    return obj
+}    
+// 在我们使用时，并不同通过new操作符去实例化它
+var per = Person('Tom', 11, 'no job') // 从这个角度看来，和工厂模式已经很像了
+// 但是还是有不同的，因为我们发现，我们出了调用sayName方法外，没有任何方法可以访问到其内部其他属性，突出了两个字"稳妥"，也可以称之为“安全”
+
+// 关于继承
+// 这是这一章的重点，我相信很多面试的时候，也会考你js的继承。
+// 我这边只会提到书中提到的几种继承方式，关于es6中通过class继承和一些拓展，请参考inheritance那篇笔记
+
+
+
+
+
+
+
 
 
 
