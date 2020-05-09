@@ -33,7 +33,11 @@ New('x', 1, 2)
 function Test(a,b){
     this.a = a
     this.b = b
-    return {x:1,y:2}
+    // return {x:1,y:2}
 }
 
-New(Test, 1, 2)
+Test.prototype.getA = function() {
+    return this.a
+}
+
+var r = New(Test, 1, 2)
