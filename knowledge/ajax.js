@@ -47,4 +47,4 @@ function sendRequest(url, method, data={}, async=true){
 
 var url = "http://www.demo.com"
 // jQuery.ajax( url [, settings ] )
-$.ajax(url, )
+$.ajax(url)
