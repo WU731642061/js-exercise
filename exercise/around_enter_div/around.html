@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>不同方向进入div产生不同的效果</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./around.css">
+    <style type="text/css" src="./around.js" defer></style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-title">不同方向进入div</div>
+    </div>
+    <div class="main">
+        <div class="main-left">
+            <div class="main-subtitle">纯css实现</div>
+            <div class="main-content">
+                <div class="css-box">
+                    <!-- 主要思路是通过在div的内部插入四个“看不见的块“，当我们hover的时候，出发动画效果，实现我们要的样式 -->
+                    <span class="mask-up mask">上</span>
+                    <span class="mask-left mask">左</span>
+                    <span class="mask-down mask">下</span>
+                    <span class="mask-right mask">右</span>
+                </div>
+            </div>
+        </div>
+        <div class="main-right">
+            <div class="main-subtitle">通过js实现</div>
+            <div class="main-content">
+                <div class="js-box"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
