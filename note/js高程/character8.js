@@ -55,20 +55,119 @@ outerWidth  // 窗口本身的宽度
 // 关于视口viewport，建议读一下这篇文章，思考一下移动端的适配问题：https://www.cnblogs.com/2050/p/3877280.html
 
 // 导航和打开窗口
+// 当然，后面有更好的处理路由跳转的方法
 window.open("url", "窗口目标", "特性字符串", "布尔值:新页面是否取代浏览器历史记录中当前加载页面")
 
 // 系统对话框
 alert("something") // 弹框
 confirm("something") // 确认框，返回值是true或false
-prompt("something") // 让用户输入一段文字，作为返回值返回  
+prompt("something") // 让用户输入一段文字，作为返回值返回
 
 
 // location对象
+// 提供了当前文档中加载的文档有关的信息
+// window.location和document.location访问是同一个对象
+// 相关属性
+location.hash // 返回URL中的hash(#号后跟0或多个符号)，如果不存在hash则返回""
+location.host // 返回服务器名称和端口号
+location.hostname // 返回不带端口号的服务器名称
+location.href // 返回当前加载页面的完整url。location.trString()方法也返回这个值
+location.pathname // 返回url中的目录或文件名，例如"www.baidu.com/aa" 则返回"/aa"
+location.port // 返回url中的端口号，如果url中不包含端口，返回空字符串
+location.protocol // 返回页面使用的协议。通常是http:或者https:
+location.search // 返回URL的查询字符串以问号开头的结果
+
+// 做点什么
+// 我们可以实现一个获取路由中所有参数的方法
+function getQueryArgs() {
+    var qs = (location.search.length > 0 ? location.search.slice(1) : ""); 
+    var args = {}
+
+    items = qs.length ? qs.split("&") : []
+
+    var name = null
+    var value = null
+    for (var i of items) {
+        var item = i.split("=")
+        // 这里必须对url的参数进行一个解码
+        name = decodeURIComponent(item[0])
+        value = decodeURIComponent(item[1])
+
+        if (name.length) {
+            args[name] = value
+        }
+    }
+    return args
+}
+
+// 位置操作
+location.assign(url); // 该方法会立即打开新的url并且在浏览器中生成一条历史记录
+location.href = url; window.location = url; // 这两种行为的本质还是修改这个方法
+
+location.replace("https://www.baidu.com") // 重定向路由，并且无法使用浏览器的回退回到上一页，同时不会在浏览器中生成新的历史记录
+location.reload(true) // 重载当前页面，不传任何参数时，可能会加载缓存，添加参数true，则必定从服务器请求资源
 
 
+// navigator对象
+// 识别客户端浏览器的事实标准
+
+navigator.appCodeName // 浏览器的名称，通常是Mozilla，即使在非Mozilla也是如此
+navigator.appMinorVersion // 次版本信息，但是firefox和chrome未提供该属性
+navigator.appName // 完整的浏览器名称
+navigator.appVersion // 浏览器版本。一般不与实际的浏览器版本对应
+navigator.cookieEnabled // 表示cookie是否启用
+navigator.javaEnabled() // 表示当前浏览器中是否启用了java
+navigator.language // 表示当前浏览器的主语言
+navigator.userAgent // 浏览器的用户代理字符串
+
+navigator.plugins // 检测浏览器中安装了哪些插件(仅针对与非IE浏览器)
+// 通常情况下，plugins返回一个数组对象，每个对象会包含如下四个属性：
+// name: 插件的名字
+// filename: 插件的文件名
+// length: 插件所处理的MIME类型数量
+
+// 检查浏览器中是否存在某插件
+function hasPlugin(name) {
+    if ( typeof name !== "string") {
+        throw "请传入string类型数据"
+    }
+    const pluginName = name.toLowerCase()
+    for (var i =0; i < navigator.plugins.length; i++) {
+        if (navigator.plugins[i].name.toLowerCase().indexOf(name) > -1) {
+            return true
+        }
+    }
+    return false
+}
 
 
+// screen对象
+// 展示浏览器窗口外部的信息
+// 这里只展示所有浏览器都支持的属性，只支持ie或只支持1-2个浏览器的属性不做展示
+
+screen.availHeight // 屏幕的像素高减去系统部件高度之后的值
+screen.availWidth // 屏幕的像素宽去系统部件宽度之后的值
+screen.height // 屏幕的像素高度
+screen.width // 屏幕的像素宽度
 
 
+// history对象
+// 对象保存着用户上网的记录
+// 出于安全性考虑，浏览器无法获取用户浏览过的url，但是通过history对象，我们可以进行前进后退等操作
 
+history.go(-1) // 后退1页
+history.go(2) // 前进2页
+history.go("www.baidu.com") // 跳转到最近的baidu页面，如果历史中不存在该页面，则仅刷新当前页面
+history.back(); history.forward(); // 后退/前进1页的缩写
 
+history.pushState(data, tltle, url) // 添加历史记录，接受3个参数，分别是状态对象，标题(在部分浏览器会被忽略，例如火狐)，路由地址
+// 该方法不会真的跳转到新的路由地址去，仅将当前路由替换成制定路由，并添加一条历史记录
+history.replaceState(data, tltle, url) // 修改历史记录，与pushState不同的是替换当前历史记录，而不产生新的历史记录
+
+// 某种意义上，调用pushState()与设置widnow.location = '#ff'类似，二者都会在当前页面创建并激活新的历史记录。但pushState()有以下几条优点：
+// 新的URL可以是与当前URL同源的任意URL。而设置window.location仅当你只修改了哈希值时才保持同一个document。
+// 如果需要，你可以不必改变URL。而设置window.location = '#foo';在当前哈希不是#foo的情况下，仅仅是新建了一个新的历史记录选项。
+// 你可以为新的历史记录项关联任意数据。而基于哈希值的方式，则必须将所有相关数据编码到一个短字符串里。
+// 假如标题在之后会被浏览器用到，那么这个数据是可以被使用的（哈希则不能）。
+// 注意pushState()绝对不会触发hashchange事件，即是是新的URL与旧的URL仅哈希不同也不会触发。
+// 摘自：https://www.cnblogs.com/jehorn/p/8119062.html
