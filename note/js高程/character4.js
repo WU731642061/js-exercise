@@ -36,11 +36,11 @@ console.log(person)
 // typeof虽然很好用，但是只能检查出部分基本类型和引用类型之间的区别
 // 当需要检测的对象都是引用类型或null时，typeof就不那么好用了，因为都会返回为obejct
 // 因此，引出了另一个方法判断，即 instanceof
-
-[] instanceof Array // true
+let arr = []
+arr instanceof Array // true
 var obj = {}
 obj instanceof Object // true
-[] instanceof Object // true, 由于所有引用类型的本质都是Object的实例，所以instanceof Objrct都会返回true
+arr instanceof Object // true, 由于所有引用类型的本质都是Object的实例，所以instanceof Objrct都会返回true
 function test(){}
 test instanceof Function // true 任何在内部实现call方法的对象使用typeof都应当返回function，因此在safari和chrome中对正则使用typeof返回的是function，而在ie和火狐浏览器中返回的是object
 test instanceof Object // true
