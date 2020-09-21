@@ -1,0 +1,52 @@
+html, body {
+  width: 100%;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+.main-container {
+  width: 100%;
+  height: 100%;
+}
+
+.drag-container__old {
+  width: 100%;
+  height: 400px;
+  box-sizing: border-box;
+  border: solid 1px gray;
+}
+
+.drag-circle__old {
+  position: absolute;
+  left: 0;
+  top: 0;
+  cursor: move;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: solid 1px;
+  background-color: greenyellow;
+  transition: width 2s, height 2s;
+}
+
+.drag-circle__old:hover {
+  width: 100px;
+  height: 100px;
+}
+
+.drag-container__new{
+  width: 100%;
+  height: 400px;
+  box-sizing: border-box;
+  border: solid 1px gray;
+  position: relative;
+}
+
+.drag-item{
+  width: 100px;
+  height: 40px;
+  cursor: move;
+  border: solid 1px;
+  background-color: greenyellow;
+}

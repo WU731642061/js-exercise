@@ -18,7 +18,7 @@ var person = {
 // Value: 包含这个属性的数据值，读取的时候，从这个位置读取，写入的时候，把新值保存在这个位置。默认值是undefined，如果你给属性赋值，那么value即为指定值
 
 // 如果你希望访问/修改上数据属性，需要通过Object.defineProperty()方法
-Object.defineProperty('属性所在的对象'，'属性名称', '描述对象') // 描述对象指的是数据属性所组成的对象，可以是一个或多个值，如下
+Object.defineProperty('属性所在的对象', '属性名称', '描述对象') // 描述对象指的是数据属性所组成的对象，可以是一个或多个值，如下
 
 person.name = 'God'; person.name // 'God'
 for (var i in person) {console.log(i)} // age name job enjoy sayName

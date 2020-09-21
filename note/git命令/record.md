@@ -45,6 +45,9 @@ git log // 查看提交历史，基于提交时间的先后顺序
 git log -p -<数字> // 以交互模式展示，最近n次的提交历史
 git log --stat // 查看提交历史，以简约的方式展示每次提交的信息
 
+// 基于其他页面里，一些git log查询的补充
+git log --oneline --decorate // 查看各个分支当前所指的对象
+git log --oneline --decorate --graph --all // 输出你的提交历史、各个分支的指向以及项目的分支分叉情况
 ```
 
 关于git log常用参数，详见[文档](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2#pretty_format)
@@ -109,6 +112,20 @@ git show <标签>  // 查看标签信息和与之对应的提交信息
 git tag -d <标签>  // 删除标签
 
 ```
+
+### git分支类命令
+
+Git 的分支，其实本质上仅仅是指向提交对象的可变指针。 Git 的默认分支名字是 master。 在多次提交操作之后，你其实已经有一个指向最后那个提交对象的 master 分支。 master 分支会在每次提交时自动向前移动。
+
+**补充：Git 的 master 分支并不是一个特殊分支。 它就跟其它分支完全没有区别。 之所以几乎每一个仓库都有 master 分支，是因为 git init 命令默认创建它，并且大多数人都懒得去改动它**
+
+```
+git branch <分支名> // 创建一个新的分支
+git checkout <分支名> // 切换分支
+
+```
+
+关于更多的git branch参数及拓展，相见[文档](./git_branch.md)
 
 
 
