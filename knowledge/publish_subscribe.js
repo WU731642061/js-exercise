@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2020-08-09 11:49:04
- * @LastEditTime: 2020-08-13 19:51:09
- * @LastEditors: your name
+ * @LastEditTime: 2020-10-09 14:32:40
+ * @LastEditors: yiwen.wu
  * @Description: In User Settings Edit
  * @FilePath: /js-exercise/knowledge/publish_subscribe.js
  */
@@ -48,11 +48,44 @@
 // 相较于观察者模式，发布-订阅模式直接将事件丢给了事件重心，而不用关心是否通知到了每一个监听者
 
 // 接下来看一下在项目中有哪些实际应用
-// 先从简单的开始
+// 先从观察者模式开始
 
-// 场景：
-// 
+// 主题，状态更新后，将会通知所有的观察者
+class Subject {
+  constructor() {
+    this.state = 0 
+    this.observers = []
+  }
 
+  getState() {
+    return this.state
+  }
 
+  setState(newState) {
+    this.state = newState
+    this.notifyAllObservers()
+  }
 
+  attach(observer) {
+    this.observers.push(observer)
+  }
+  
+  notifyAllObservers() {
+      this.observers.forEach(observer => {
+          observer.update()
+      })
+  }
+}
+
+// 观察者，等待被触发
+class Observer {
+  constructor(name, subject) {
+      this.name = name
+      this.subject = subject
+      this.subject.attach(this)
+  }
+  update() {
+      console.log(`${this.name} update, state: ${this.subject.getState()}`)
+  }
+}
 
