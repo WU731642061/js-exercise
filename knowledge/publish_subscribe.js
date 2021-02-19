@@ -1,11 +1,3 @@
-/*
- * @Author: your name
- * @Date: 2020-08-09 11:49:04
- * @LastEditTime: 2020-10-09 14:32:40
- * @LastEditors: yiwen.wu
- * @Description: In User Settings Edit
- * @FilePath: /js-exercise/knowledge/publish_subscribe.js
- */
 // 观察者模式 和 发布-订阅模式
 
 // 看了不少文章，有的文章说 发布 + 订阅 = 观察者模式
