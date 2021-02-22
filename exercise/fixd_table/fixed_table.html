@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="./fixed_table.css" rel="stylesheet">
+  <script src="./fixed_table.js" defer></script>
+  <title>固定表单</title>
+</head>
+<body>
+  <div>
+    <div class="description__container">
+      <H1>固定表单</H1>
+    
+      <div>固定表单通常情况下分为两种：固定表头和固定列</div>
+      <div>写这个例子的原因：网上已经有很多大佬写过固定表头/列的文章了，但是最近公司里别的部门提了一个线上bug，就是固定列滚动延迟同步</div>
+      <div>本文旨在：了解实现固定表头/列的同时，找到出现滚动不同步的原因，再现bug并修复</div>
+      <div>2021-02-21</div>
+    </div>
+    <div class="table__container">
+      <div>普通表格</div>
+      <div>说明：普通表格高度自动撑开</div>
+      <div>注：一下的功能和样式风格我会尽量向element统一，但是实现用原生实现，不借用jqury和bootstrap</div>
+      <div class="basic-table table-wrapper">
+        <table class="table">
+          <colgroup>
+            <col width="150" />
+            <col width="150" />
+            <col width="300" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>姓名</th>
+              <th>年龄</th>
+              <th>地址</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>老大</td><td>25</td><td>上海市普陀区xx路xx号xx室</td></tr>
+            <tr><td>老二</td><td>22</td><td>上海市普陀区xx路xx号xx室</td></tr>
+            <tr><td>老三</td><td>18</td><td>上海市普陀区xx路xx号xx室</td></tr>
+            <tr><td>老四</td><td>25</td><td>上海市普陀区xx路xx号xx室</td></tr>
+            <tr><td>老五</td><td>22</td><td>上海市普陀区xx路xx号xx室</td></tr>
+            <tr><td>老六</td><td>18</td><td>上海市普陀区xx路xx号xx室</td></tr>
+            <tr><td>老七</td><td>25</td><td>上海市普陀区xx路xx号xx室</td></tr>
+            <tr><td>老八</td><td>22</td><td>上海市普陀区xx路xx号xx室</td></tr>
+            <tr><td>老九</td><td>18</td><td>上海市普陀区xx路xx号xx室</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="table__container">
+      <div>固定表头</div>
+      <div>核心实现思路：通过两个table来渲染表格，一个overflow:hidden，另一个overflow:auto</div>
+      <div class="fixed-header-table table-wrapper">
+        <div class="fixed-table-header__container">
+          <table class="table fixed-table-header">
+            <colgroup>
+              <col width="150" />
+              <col width="150" />
+              <col width="300" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th>姓名</th>
+                <th>年龄</th>
+                <th>地址</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <div class="fixed-table-body__container">
+          <table class="table fixed-table-body">
+            <colgroup>
+              <col width="150" />
+              <col width="150" />
+              <col width="300" />
+            </colgroup>
+            <tbody>
+              <tr><td>老大</td><td>25</td><td>上海市普陀区xx路xx号xx室</td></tr>
+              <tr><td>老二</td><td>22</td><td>上海市普陀区xx路xx号xx室</td></tr>
+              <tr><td>老三</td><td>18</td><td>上海市普陀区xx路xx号xx室</td></tr>
+              <tr><td>老四</td><td>25</td><td>上海市普陀区xx路xx号xx室</td></tr>
+              <tr><td>老五</td><td>22</td><td>上海市普陀区xx路xx号xx室</td></tr>
+              <tr><td>老六</td><td>18</td><td>上海市普陀区xx路xx号xx室</td></tr>
+              <tr><td>老七</td><td>25</td><td>上海市普陀区xx路xx号xx室</td></tr>
+              <tr><td>老八</td><td>22</td><td>上海市普陀区xx路xx号xx室</td></tr>
+              <tr><td>老九</td><td>18</td><td>上海市普陀区xx路xx号xx室</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="table__container">
+      <div>固定列</div>
+      <div>核心实现思路：克隆需要被固定的列，覆盖在原表单上</div>
+      
+    </div>
+  </div>
+</body>
+</html>
