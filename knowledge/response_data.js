@@ -101,5 +101,73 @@ Object.defineProperties(book,
 // 语法
 var myProxy = new Proxy(target, handler)
 // 注意，要使得Proxy起作用，必须针对Proxy实例(myProxy)进行操作，而不是针对目标对象(target)进行操作。
+// 如果handler没有设置任何拦截，那就等同于直接通向原对象。
+// handler，即同一个拦截器函数，可以设置拦截多个操作。对于可以设置、但没有设置拦截的操作，则直接落在目标对象上，按照原先的方式产生结果。
+// Proxy 支持的拦截操作一览，一共 13 种
 
-// 未完。。。
+// 下面拦截器函数的返回值 指的是，应当给该函数提供一个返回值，拦截器会根据返回值作出对应的响应
+// 部分拦截函数如果缺少返回值，则会报错
+// 很多trap函数并不需要返回true或者false都可以生效，这种返回布尔值的要求，更多的只是一种约定，比如defineProperty，在trap里给target添加了属性，即使返回false，也能成功
+var handler = {
+  // 拦截属性访问，例如 myProxy['name'] 和 myProxy.name
+  get (target, propKey, receiver) {
+    // target 目标对象
+    // propKey 访问的属性，myProxy.name中name就是propKey
+    // receiver proxy 实例本身
+  },
+
+  // 拦截属性设置，例如 myProxy['name'] = 'Tome' 和  myProxy.name = 'Tom'，返回值 布尔值
+  // 注意，严格模式下，set代理如果没有返回true，就会报错。
+  set (target, propKey, value, receiver) {
+    // target 目标对象
+    // propKey 访问的属性，myProxy.name中name就是propKey
+    // value 所赋予的值
+    // receiver proxy 实例本身
+  },
+
+  // 拦截 in 操作，例如 name in myProxy 操作，返回值 布尔值
+  has(target, propKey) {
+    // target 目标对象
+    // propKey 访问的属性，myProxy.name中name就是propKey
+  },
+
+  // 拦截 delete 操作, 例如 delete myProxy['name'] 操作，返回值 布尔值
+  deleteProperty(target, propKey) {
+    // target 目标对象
+    // propKey 访问的属性，myProxy.name中name就是propKey
+  },
+
+  // 拦截 Object.getOwnPropertyNames(proxy)、Object.getOwnPropertySymbols(proxy)、Object.keys(proxy)、for...in循环 操作
+  // 返回值 数组。该方法返回目标对象所有自身的属性的属性名，而Object.keys()的返回结果仅包括目标对象自身的可遍历属性。
+  ownKeys(target) {
+    // target 目标对象
+  },
+
+  // 拦截 Object.getOwnPropertyDescriptor(proxy, propKey) 操作, 返回属性的描述对象
+  getOwnPropertyDescriptor(target, propKey) {
+    // target 目标对象
+    // propKey 访问的属性，myProxy.name中name就是propKey
+  },
+
+  // 拦截Object.defineProperty(proxy, propKey, propDesc）、Object.defineProperties(proxy, propDescs)操作, 返回 布尔值
+  defineProperty(target, propKey, propDesc) {
+    // target 目标对象
+    // propKey 访问的属性，myProxy.name中name就是propKey
+    // propDesc 该属性的数据属性/访问器属性
+  },
+
+  // 拦截 Object.preventExtensions(proxy) 操作, 返回值 布尔值
+  preventExtension(target) {
+    // target 目标对象
+  },
+
+  getPrototypeOf(target){},
+
+  isExtensible(target){},
+
+  setPrototypeOf(target, proto){},
+
+  apply(target, object, args){},
+
+  construct(target, args){}
+}
