@@ -129,3 +129,6 @@ getUserId('some_url').then(function (id) {
 
 // Promise实现
 // 这里为了代码展示清晰，直接写在promiseA+.js 这个文件里
+
+// Promise串行
+// (留个坑，今天刚看到的一个东西，理论上就是让给定一个promsie集合，能有序的执行，等下周把promise源码写了，就写这个)
