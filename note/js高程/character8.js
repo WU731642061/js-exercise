@@ -171,3 +171,4 @@ history.replaceState(data, tltle, url) // 修改历史记录，与pushState不�
 // 假如标题在之后会被浏览器用到，那么这个数据是可以被使用的（哈希则不能）。
 // 注意pushState()绝对不会触发hashchange事件，即是是新的URL与旧的URL仅哈希不同也不会触发。
 // 摘自：https://www.cnblogs.com/jehorn/p/8119062.html
+
