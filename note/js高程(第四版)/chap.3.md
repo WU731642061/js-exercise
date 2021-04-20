@@ -37,7 +37,7 @@ es6新出的关键字，用来声明一个变量，与var相似，但是有如�
       if (true) {let b = 2}
       console.log(b) // Uncaught ReferenceError: b is not defined
       ```
-  + 暂时性死区，也就是 let 声明的变量不会在作用域中被提升
+  + 暂时性死区，也就是 let 声明的变量不会在作用域中被提升(hosting)
   + 全局声明不会变成window对象的数据，var会。同时，let 声明仍然是在全局作用域中发生的，相应变量会在页面的生命周期内存续
   + 无法重复声明
   + 解决了for循环中的变量迭代问题，本质还是存在的作用域问题
