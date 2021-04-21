@@ -1,0 +1,46 @@
+<!--
+ * @Author: yiwen.wu
+ * @Date: 2021-04-20 09:34:51
+ * @LastEditTime: 2021-04-21 17:02:03
+ * @LastEditors: yiwen.wu
+ * @Description: Parallax
+ * @FilePath: /js-exercise/exercise/parallax/parallax.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="./parallax.css" rel="stylesheet">
+  <script src="./parallax.js"></script>
+  <title>Parallax </title>
+</head>
+<body>
+  <div class="container">
+    <div class="column">
+      <div class="explain">无任何滚动效果的img</div>
+      <img src="./img/bg1.jpeg" class="bg">
+      <img src="./img/bg2.jpeg" class="bg">
+      <img src="./img/bg3.jpeg" class="bg">
+      <img src="./img/bg4.jpeg" class="bg">
+      <img src="./img/bg5.jpeg" class="bg">
+    </div>
+    <div class="column">
+      <div class="explain">
+        用css实现的Parallax滚动效果，有点是实现很方便，缺点是用到background，配合上background-size用起来，坑很多，往往达不到想要的效果
+      </div>
+      <div class="parallax-bg bg-img1"></div>
+      <div class="parallax-bg bg-img2"></div>
+      <div class="parallax-bg bg-img3"></div>
+      <div class="parallax-bg bg-img4"></div>
+      <div class="parallax-bg bg-img5"></div>
+    </div>
+    <div class="column">
+      <div class="explain">
+        用js实现的Parallax滚动效果
+      </div>
+    </div>
+  </div>
+</body>
+</html>
