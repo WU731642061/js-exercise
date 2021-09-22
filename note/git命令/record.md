@@ -39,7 +39,8 @@ git init  // 初始化仓库，在项目文件下创建.git文件夹
 git status  // 查看仓库文件状态
 git status -s  // 状态简览
 
-git diff  // 查看已暂存和未暂存的修改
+git diff  // 查看未暂存的修改
+git diff --cached | git diff --staged // 查看已暂存的和最后一次提交的差异
 
 git log // 查看提交历史，基于提交时间的先后顺序
 git log -p -<数字> // 以交互模式展示，最近n次的提交历史
@@ -62,6 +63,10 @@ git commit --amend  // 覆盖掉你的上一次提交，可以借这个命令实
 git reset HEAD <文件名> // 撤销git add添加的指定文件
 git checkout -- <文件名> // 放弃工作目录中的更改，彻底撤销(消除撤销的记录)，这两条命令在文档中，被称之为“危险的”，请小心使用
 
+// 总结一下
+// git commit --amend 合并提交
+// git reset HEAD 撤销暂存
+// git checkout -- <文件名> 撤销更改
 ```
 
 关于git add拓展，详见[文档](./git_add.md)<br>
@@ -123,6 +128,11 @@ Git 的分支，其实本质上仅仅是指向提交对象的可变指针。 Git
 git branch <分支名> // 创建一个新的分支
 git checkout <分支名> // 切换分支
 
+git branch -b <分支名> // 创建一个新分支并切换到该分支，等价于上面两条命令的结合
+
+git merge <分支名> // 合并分支
+
+git branch -d <分支名> // 删除分支
 ```
 
 关于更多的git branch参数及拓展，相见[文档](./git_branch.md)
