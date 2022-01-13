@@ -95,4 +95,104 @@ function curry (fn, receiveArgs) {
 
 ### 代码组合(compose)
 
+《函数式编程指北》这本电子书只介绍了compose这种组合方式，但是在我的查阅中，还发现有`pipe`这种组合方式
+
+`compose`方式的代码组合:
+
+```js
+var componse = function (f, g) {
+  return function(x) {
+    return f(g(x))
+  }
+}
+// 这里可以很明显的看出，调用的顺序是从后往前
+```
+
+那么，因此可以总结出：compose是根据参数倒序包装: `[a, b, c]` 调用顺序 c -> b -> a
+
+`pipe`方式的代码组合(正好与compose相反):
+
+```js
+var pipe = function (f, g) {
+  return function(x) {
+    return g(f(x))
+  }
+}
+// 这里可以很明显的看出，调用的顺序是从前往后
+```
+
+同理，可以总结出：pipe函数包装函数是根据参数顺序包装: `[a, b, c]` 调用顺序 a -> b -> c
+
+总结一下，我们通过这两种思路，实现一个通用的调用方式
+
+```js
+// 就从pipe开始吧
+// 递归实现版本
+function pipe (...fns) {
+  const len = fns.length
+  let index = len // 这里取len是为了做一次验证，确保每一个fns都是函数类型
+  while (index) {
+    index -= 1
+    if (typeof fns[index] !== 'function') {
+      throw new TypeError('Excepted  a function');
+    }
+  }
+  return function (...args) {
+    // 如果 len 长度大于0，则调用函数，否则返回args
+    let result = len ? fns[index].apply(this, args) : args
+    index += 1
+    while (index < len) {
+      console.log(this)
+      result = fns[index].call(this, result) // 其实我不太理解为什么这里要调用this，fns[index](result) 也是一样的
+      index += 1
+    }
+    return result
+  }
+}
+
+// compose的写法，就是将pipe的调用链反过来
+function compone (...fns) {
+  return pipe(...fns.reverse())
+}
+```
+
+以上，就实现了 `pipe` 和 `compose` 的两种基本实现。但是既然可以用迭代的方式可以实现pipe，那么用递归的方式一定也可以实现
+
+```js
+function pipe (...fns) {
+  const len = fns.length
+  let index = len
+  // 老样子，验证一次，数组所有元素是否都是函数
+  while (index) {
+    index -= 1
+    if (typeof fns[index] !== 'function') {
+      throw new TypeError('Excepted  a function')
+    }
+  }
+  // 这里需要利用闭包的特性，去存储每一次执行的结果
+  let result = null
+  return function fn (...args) {
+    if (index >= len - 1 ) {
+      index = 0
+      return result ? result : args[0]
+    }
+    result = fns[index].apply(this, args)
+    index = index + 1
+    // 每一次执行的结果会作为参数传递给下一次执行的函数
+    return fn.call(this, result)
+  }
+}
+```
+
+优化：看了上述的代码，是不是觉得和数组方法中的 `reduce` 很像，我们可以借助 `reduce` 方法进行代码一个显著的简化
+
+```js
+// reduce 版本
+// 假设这里不用验证都是函数
+// 这个的 arg 在第一次循环时，指的是 args， 后面指的是前一次执行获得的结果，作为参数传递给下一个函数
+let pipe = (...fns) => (...args) => fns.reduce((arg, fn, index) => index === 0 ? fn.apply(this, arg) : fuc.call(this, arg), args) // 最后这个args是初始值，详见reduce用法
+// 同理compose的写法也可以用pipe + reduce + reverse 实现
+let compose = (...fns) => (...args) => fns.reverse().reduce((arg, fn, index) => index === 0 ? fn.apply(this, arg) : fuc.call(this, arg), args)
+```
+
 
