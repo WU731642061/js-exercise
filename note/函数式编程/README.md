@@ -195,4 +195,179 @@ let pipe = (...fns) => (...args) => fns.reduce((arg, fn, index) => index === 0 ?
 let compose = (...fns) => (...args) => fns.reverse().reduce((arg, fn, index) => index === 0 ? fn.apply(this, arg) : fuc.call(this, arg), args)
 ```
 
+<!-- 省略一部分知识点，这部分需要大量代码实践，感觉目前不能很好的掌握这种写法，能弄透了再回来补 —— functor，pointed functor ... -->
 
+### 洋葱模型
+
+第一次遇到洋葱模型设计是在 `koa` 这类框架和 `redux` 库中看到的。
+
+第一次看到的时候，只得其形，不得其义。导致过一段时间就会忘了。直到阅读了函数式编程，大致能理解一些这种设计思想。
+
+当然这里的洋葱模型问题更加偏向面试，而非纯粹的函数式编程中的 `Monad`，以后有机会我补充到后面
+
+先看一下代码的使用，我们来反向推测一波。
+
+```js
+// koa官方文档上的使用，我们这里稍微简化一下
+// https://koa.bootcss.com/
+const Koa = require('koa');
+const app = new Koa();
+
+app.use(async (ctx, next) => {
+  console.log('start log')
+  await next();
+  console.log('end log');
+});
+
+app.use(async (ctx, next) => {
+  console.log('get Time')
+  await next();
+  console.log('now');
+});
+
+app.use(async ctx => {
+  console.log('middle')
+});
+
+app.listen(3000);
+
+// 我们希望得到的结果是
+// start log
+// get Time
+// middle
+// now
+// end log
+```
+
+上面这段代码中，用到了两个实例方法，use和listen
+其中`listen`的主要作用是启动服务，`use`的作用则是注册
+
+通常情况下，想实现这种功能，我们需要额外维护一个数组，用来存放中间件函数
+然后，通过函数式编程中的 compose(即代码组合)来调用中间件(同时传递上下文)，具体的实现手段是迭代或者循环
+
+```js
+// 让我们看一下源码 
+module.exports = class Application extends Emitter {
+  // 这里只引用这次用到的
+  constructor (options) {
+    super()
+    this.middleware = [] // 创建一个 middleware 数组，用来存放中间件
+    // ...
+  }
+
+  // 第一个使用到的实例方法use
+  // use函数就是起到了一个注册的作用，即存放需要的中间件
+  use (fn) {
+    if (typeof fn !== 'function') throw new TypeError('middleware must be a function!')
+    this.middleware.push(fn)
+    return this
+  }
+
+  // 接下来是第二个遇到的实例方法listen，其中调用了 this.callback 
+  listen (...args) {
+    const server = http.createServer(this.callback())
+    return server.listen(...args)
+  }
+
+  // 这里与模型相关的主要是compose方法，通过compose方法，实现了洋葱模型函数的调用
+  // 其余的地方主要是处理了请求，创建了上下文内容，并执行处理请求的函数(this.handleRequest)
+  // 所以this.callback() 的返回值得到了一个新的函数，这个函数被调用用来处理请求，我们将compose后的函数作为参数传入
+  // 这里分析的路径分成了两部分
+  // 1：分析 this.handleRequest 干了什么
+  // 2：分析 compose 函数干了什么
+  callback () {
+    const fn = compose(this.middleware)
+
+    if (!this.listenerCount('error')) this.on('error', this.onerror)
+
+    const handleRequest = (req, res) => {
+      const ctx = this.createContext(req, res)
+      return this.handleRequest(ctx, fn)
+    }
+
+    return handleRequest
+  }
+
+  // 我们先看 1
+  // handleRequest处理了ctx，并调用了中间件
+  // 这里可以看到 fnMiddleware 是通过 promise的形式调用的，可以大胆的假设，compose的返回值是一个promise实例
+  handleRequest (ctx, fnMiddleware) {
+    const res = ctx.res
+    res.statusCode = 404
+    const onerror = err => ctx.onerror(err)
+    const handleResponse = () => respond(ctx)
+    onFinished(res, onerror)
+    return fnMiddleware(ctx).then(handleResponse).catch(onerror)
+  }
+}
+```
+
+关于handleRequest的线索到这里断了，那这里需要补充一个知识点，node的http模块
+
+http模块是nodeJs的一个内置模块，旨在支持该协议的许多传统上难以使用的功能，他的相关api是非常底层的，用来进行流处理和消息解析。 它将消息解析为标头和正文，但不解析实际的标头或正文。更多的具体信息，详见[文档](http://nodejs.cn/api/http.html#httpcreateserveroptions-requestlistener)
+
+这里主要剖析一下 createServer 这个api
+
+```js
+http.createServer([options][, requestListener])
+// options 接受对象，指定一些server数据处理的配置
+// requestListener 接受一个函数，是自动添加到 'request' 事件的函数
+
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'application/json' });
+  res.end(JSON.stringify({
+    data: 'Hello World!'
+  }));
+});
+
+// 在调用的过程中，该api默认传输req和res两个参数，这也是为什么express的next是作为第三个参数存在，而这里被ctx封装了
+```
+
+有了上面这一段解析，大致可以明白以一整个流程了：
+
+1. 构建实例、初始化  (new Koa; this.middleware[])
+2. 编译代码的过程中，注册中间件 (app.use; this.middleware.push(fn))
+3. 代码组合，返回一个新的函数 (this.callback(); compose(this.middleware)) -- 下文分析
+4. 基于http模块，创建node层的服务器，并将组合后的代码通过`handlerequest`包装， 注入到`request`事件中 (http.createServer(this.callback()))
+5. 挂载服务，每次收到请求时，触发request事件，即`handlerequest`函数 -> 即调用 `middleware`
+
+
+那么，最后一块，目标则是 `compose` 函数的实现
+虽然上面有了函数式编程的compse实现，但是此处要支持异步，因此实现方法会有些不同
+
+```js
+// 1. 声明compose函数，接受中间件，记得函数式编程的特点，纯函数，无副作用
+function compose (middleware) {
+  // 为了保险，需要检查一下 middleware 类型，当然在koa中，因为初始化了middleware属性，就没做检查，这边就当多了解一下，做一次检查
+  if (!Array.isArray(middleware)) {
+    throw new TypeError('middleware is not array type.')
+  }
+  // 2. 还记得上面的用法吗？fnMiddleware(ctx).then(handleResponse).catch(onerror)
+  //    那么 compose 的返回值一定是一个函数，同时要提供 next 方法
+  return function (context, next) {
+    let index = -1 // 此处这么设计是为了防止中间件重复调用
+    return dispatch(0) // 从第一个中间件开始调用
+
+    // 声明 dispatch 函数
+    function dispatch(i) {
+      if (i <= index) return Promise.reject(new Error('next() called multiple times'))
+      index = i // 将指针指向当前参数传进来的中间件索引位置
+      let fn = middleware[i] // 声明被调用的中间件
+      // 官方接下来是这么写的
+      // 判断 中间件 是否调用万，如果调用万，则赋值 next 给 fn
+      // 但是追溯源码的过程中，官方并没有给next赋值，思来想去，感觉这里是为了做一个扩展，感觉有点类似于提供一个hook，可以在最后一步处理之前处理过的上下文
+      if (i === middleware.length) fn = next
+      if (!fn) return Promise.resolve()
+      // 但是由于没有处理next的数据类型，这里直接通过try catch 捕获
+      try {
+        // 这里直接调用middleware中的函数，并提供next，如果开发者调用next，就会dispatch下一个中间件，如果不调用，则终止中间件的循环
+        return Promise.resolve(fn(context, function next () {
+          dispatch(i + 1)
+        }))
+      } catch (err) {
+        return Promise.reject(err)
+      }
+    }
+  }
+}
+```
