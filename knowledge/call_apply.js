@@ -69,7 +69,7 @@ Function.prototype.newCall = function(context){
   // }
   // context[uniqueID] = this;
   context.fn = this
-  var args = [...arguments].slice(1)
+  var args = [...arguments].slice(1) // es6可以用剩余参数
   // 或者 new Array(...arguments).slice(1)
   // 或者 Array.from(arguments).slice(1)        from方法从一个类似数组或可迭代对象创建一个新的，浅拷贝的数组实例
   var r = context.fn(...args)
@@ -97,8 +97,30 @@ Function.prototype.newApply = function(context, arr){
   return r
 }
 
-Function.prototype.newBind = function(context){
-
+// bind 有3大特性
+// 1. bind 返回一个新函数
+// 2. bind 支持curry函数
+// 3. bind的this值一旦绑定则不能再次更改
+// 绑定函数也可以使用 new 运算符构造，它会表现为目标函数已经被构建完毕了似的。提供的 this 值会被忽略，但前置参数仍会提供给模拟函数。
+// 分析：要实现这个功能，必定要用到必包的功能，还需要有一个属性去存储绑定的对象
+Function.prototype.newBind = function(context, ...rest){
+  var fn = this
+  var args = rest
+  if (typeof fn !== 'function') {
+    throw new Error('类型错误')
+  }
+  var bound = function (...brest) {
+    // 这里的fn 指的是被绑定的函数
+    // 此时的this，在new的情况下，会有如下情况
+    // 生成 {} 然后 {}.__proto__ = bound.prototype
+    // 又因为下面bound.prototype = new fn() 变成了fn的实例
+    // 就可以得到  {}.__proto__.__proto__ === bound.prototype.__proto__ 也就是 this.constructor === fn
+    return fn.apply(this.constructor === fn ? this : context, [...args, ...brest])
+  }
+  if (fn.prototype) {
+    bound.prototype = new fn()
+  }
+  return bound
 }
 
 // 文章参考自：https://zhuanlan.zhihu.com/p/83523272

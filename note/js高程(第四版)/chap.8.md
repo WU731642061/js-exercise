@@ -167,6 +167,8 @@ es2017 新增语法: `Object.getOwnPropertyDescriptors('属性所在的对象')`
   let p2 = createFact('Jim', 20, 'employer')
   ```
 
+  相较于下面的构造函数模式，工厂模式需要显示地声明对象来存储属性
+
 2. 构造函数模式
 
   利用了js的 `new` 关键字的特性，通过创造构造函数，自己定义对象类型定义属性和方法。
@@ -190,3 +192,50 @@ es2017 新增语法: `Object.getOwnPropertyDescriptors('属性所在的对象')`
 3. 原型模式
 
   这个模式主要利用的js函数的特性，每个函数都会创建一个 prototype 属性，这个属性是一个对象，包含其实例共享的属性和方法。
+
+  ```js
+  function Person() {}
+  Person.prototype.name = 'Tom'
+  Person.prototype.hobby = [1,2,3]
+
+  const person1 = new Person()
+  const person2 = new Person()
+  ```
+  这样的好处是实例可以共享属性，坏处是如果某个实例修改了属性值，其他实例获取到的值也会改变
+
+  ```js
+  person1.hobby.push(4)  // person2.hobby也会跟着更改 
+  ```
+
+4. 对象迭代
+
+  这里记录一些api吧
+  如何遍历一个对象
+  `for-in`, `Object.keys()`, `Object.getOwnPropertyName()`, `Object.values()`, `Object.entries()`
+
+## 继承(6种)
+
+1. 原型链继承
+
+  简要说明：将构造函数挂载实例化后挂在到子类的原型链上去
+
+  ```js
+  function Supertype () {
+    this.type = 1
+  }
+
+  Supertype.prototype.getSuperValue = function () {
+    return this.type
+  }
+
+  function Subtype() {
+    this.subtype = 2
+  }
+
+  Subtype.prototype = new Supertype()
+  var s = new Subtype()
+  ```
+
+
+
+

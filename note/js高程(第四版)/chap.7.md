@@ -90,7 +90,7 @@ class Bar {
 ```js
 // 等价的generatorFn:
 function* generatorFn() {
-  for(constxof[1,2,3]){
+  for(const x of [1,2,3]){
     yield x;
   }
 }
@@ -112,6 +112,7 @@ function* testGen() {
     yield i
   }
 }
+
 // 等价于
 function* testGen2() {
   yield* [1,2,3]
@@ -190,7 +191,7 @@ arr.forEact((item, index, arr) => {
 ```
 
 通常来说，创建一个元素(数组或对象)，每个被创建的元素内部有一个`[[可枚举]]`的属性，这个属性通常是在元素隐形的，非显形声明的。
-对于基本类型来水，例如字符串，在创建时，生成了迭代器，同时允许下标访问(es5开始支持)
+对于基本类型来说，例如字符串，在创建时，生成了迭代器，同时允许下标访问(es5开始支持)
 对于通过直接的赋值和属性初始化的属性，该标识值(`[[可枚举]]`)默认为即为 true
 对于通过 `Object.defineProperty` 等定义的属性，该标识值默认为 false
 可枚举的属性可以通过 `for-in` 循环进行遍历（包括元素自身的可枚举属性，以及继承的可枚举属性）
