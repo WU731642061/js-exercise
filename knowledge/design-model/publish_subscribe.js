@@ -76,8 +76,120 @@ class Observer {
       this.subject = subject
       this.subject.attach(this)
   }
+
   update() {
       console.log(`${this.name} update, state: ${this.subject.getState()}`)
   }
 }
+
+// 第一步，实例化主题
+const subject = new Subject()
+// 第二步，实例化观察者，即收集依赖
+const observerA = new Observer('a', subject)
+// 最后一步，主题事件的触发，通知所有观察者
+subject.notifyAllObservers()
+
+// 我个人觉得这种设计模式的实现难点不在于如何其本身函数的实现，而是在于其调度的分配的设计
+// 让我们看看另一种形态的观察者模式， eventEmitter
+class EventEmitter {
+  constructor () {
+    // 这里采用new Map的实现方式，在删除事件更加优雅
+    this.events = new Map()
+  }
+
+  // eventEmitter将会拥有两个核心方法，on和emit，分来用来收集依赖(监听)和通知
+  on (type, callback) {
+    // 稍微包装一下
+    if (typeof callback !== 'function') {
+      callback = () => callback
+    }
+    if (this.events.has(type)) {
+      this.events.get(type).push(callback)
+    } else {
+      this.events.set(type, [callback])
+    }
+  }
+
+  emit(type) {
+    if (this.events.has(type)) {
+      const callbackList = this.events.get(type)
+      callbackList.forEach(callback => {
+        callback.apply(this, arguments)
+      })
+    }
+  }
+
+  delete(type) {
+    return this.events.delete(type)
+  }
+}
+
+// “ 观察者模式：定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都得到通知并被自动更新
+// 上上面的 Subject 和 Observer， 上面的 type 和 callbacks，就是这种一对多的关系
+
+// 发布-订阅者模式
+// 用自己的语言来说，在观察者模式中，主题修改状态后，依然需要自己向观察者们发布更新，那么观察者-主题之间就形成了一种弱耦合关系
+// 为了完全摆脱这种耦合，发布-订阅模式抽离了部分发布的逻辑(我们把抽离的这部分称为broker——调度中心)，这样调度中心和发布者和订阅者各自专注于自己的任务即可
+class Broker {
+  constructor () {
+    // 订阅的定语者
+    this.subscribers = []
+    // 我们定义一个主题，用来被发布者触发
+    this.state = 0
+  }
+
+  // subscribe 订阅行为
+  subscribe(subscriber) {
+    this.subscribers.push(subscriber)
+  }
+
+  // 更改主题状态
+  setState(state) {
+    this.state = state;
+    // 状态改变后，发布
+    this.publish();
+  }
+
+  getState() {
+    return this.state;
+  }
+
+  // 通知所有的订阅者触发更新
+  notify() {
+    this.subscribers.forEach(subscriber => {
+      subscriber.update()
+    })
+  }
+}
+
+// 定义发布者
+class Publisher {
+  constructor () {}
+
+  // 去更新state，然后触发通知
+  changeState(broker, state) {
+    broker.setState(state)
+  }
+}
+
+// 定义订阅者
+class Subscriber {
+  constructor(name, broker) {
+    this.name = name;
+    this.broker = broker;
+    this.broker.subscribe(this);
+  }
+  update() {
+    console.log(`${this.name}:${this.broker.getState()}`);
+  }
+}
+
+// 创建调度中心
+const broker = new Broker()
+// 创建观察者
+const publisher = new Publisher()
+// 订阅者只需要向调度中心去订阅
+const subscriber1 = new Subscriber('a', broker)
+// 发布者只关心自己数据的更新，而不需要关心去给谁发布
+publisher.changeState()
 

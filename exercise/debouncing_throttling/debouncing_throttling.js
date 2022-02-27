@@ -11,20 +11,16 @@ normal.addEventListener('keyup', (e)=>{
 
 
 let throttle = function(func, interval){
-    let timer, last
+    let timer
     return function(){
         let _args = arguments
-        now = +new Date() //等价于 new Date().getTime() 
-        clearTimeout(timer) //每次都清理回掉，然后进行判断
-        if (last && now < last + interval){         
-            timer = setTimeout(function(){
-                last = now
-                func(..._args)
-            }, interval)
-        } else {
-            last = now
-            func(..._args)
+        if (timer) {
+            return
         }
+        timer = setTimeout(function() {
+            func(..._args)
+            timer = null
+        }, interval)
     }
 } 
 let throttleInput = throttle(changeContent, 1000)
