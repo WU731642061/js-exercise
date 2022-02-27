@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>虚拟dom和diff算法</title>
+</head>
+<body>
+  <button id="pacth">功能测试</button>
+  <button id="pacth2">功能测试2</button>
+  <button id="pacth3">功能测试3</button>
+  <div>顺序：功能测试 -> 功能测试2 -> 功能测试3 循环，不能跳着点，因为vdom会出现新旧节点对比时，dom映射找不到的情况</div>
+  <div id="container"></div>
+</body>
+</html>
