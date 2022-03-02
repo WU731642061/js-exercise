@@ -96,7 +96,7 @@ function object(obj) {
     return new F
 }
 
-var son = object()
+var son = object(obj)
 son.arr.push(6) // [1,2,3,4,5,6]
 // 由于方法内是直接复制，导致了引用类型共享的问题，obj.arr也会被改变
 // ES5中已经规定了相应的范式，因此我们就不需要去实现这种方法了

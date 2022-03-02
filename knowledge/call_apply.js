@@ -117,9 +117,15 @@ Function.prototype.newBind = function(context, ...rest){
     // 就可以得到  {}.__proto__.__proto__ === bound.prototype.__proto__ 也就是 this.constructor === fn
     return fn.apply(this.constructor === fn ? this : context, [...args, ...brest])
   }
-  if (fn.prototype) {
-    bound.prototype = new fn()
-  }
+  // 这里主要是用到一个原型式继承的思想，让用户可以在遇到new bound时，实例可以访问fn的原型，但是不能随意改变fn的原型
+  // 这里写一个原生实现，和现有的函数实现
+  // var fn_ = function(){}
+  // fn_.prototype = fn.prototype // 只继承原型，不继承内部的this
+  // var r = new fn_
+  // bound.prototype = new fn()
+  // 另一种就是直接通过object.create()
+  bound.prototype = Object.create(fn.prototype)
+
   return bound
 }
 

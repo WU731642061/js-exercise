@@ -191,5 +191,5 @@ const publisher = new Publisher()
 // 订阅者只需要向调度中心去订阅
 const subscriber1 = new Subscriber('a', broker)
 // 发布者只关心自己数据的更新，而不需要关心去给谁发布
-publisher.changeState()
+publisher.changeState(broker, '1')
 

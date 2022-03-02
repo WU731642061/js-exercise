@@ -307,3 +307,27 @@ console.log([].concat(arr));
 console.log(_objectSpread({}, obj));
 ```
 
+## 面试题补充
+
+实现map和用map实现reduce，现在的面试题是真的千奇百怪啊
+
+```js
+Array.prototype.myMap = function(fn, cbThis) {
+    const r = []
+    const list = this
+    let callbackThis = cbThis || null
+    list.reduce((pre, aft, index, arr) => {
+        r.push(fn.call(callbackThis, aft, index, arr))
+    }, 0)
+    return r
+}
+
+Array.prototype.myReduce = function(fn, initValue) {
+    const list = this
+    let r = initValue || list[0]
+    for (let i = initValue ? 0: 1; i < list.length; i++) {
+        r = fn(r, list[i], i, list)
+    }
+    return r
+}
+```
